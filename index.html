@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="src/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="icon" href="src/img/icon/note-icon.png">
+
+    <title>Vero Notes</title>
+  </head>
+  <body>
+    <!-- START NAVBAR -->
+      <nav class="navbar navbar-expand-sm navbar-dark bg-primary px-3">
+        <div class="container-fluid">
+          <div>
+            <a class="navbar-brand" href="/">Vero Notes</a>
+            <br>
+            <small class="text-white">&copy; JulviantoM</small>
+          </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav float-end">
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#noteAuthor">Author</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <!-- END NAVBAR -->
+
+    <!-- START CONTENTS -->
+      <div class="container-fluid py-4">
+        <div class="container-fluid d-flex flex-wrap gap-2" id="appContents"></div>
+        
+        <div class="buttonFix">
+          <button class="btn btn-primary float-end" type="button" data-bs-toggle="modal" data-bs-target="#newNote">New note</button>
+        </div>
+      </div>
+    <!-- END CONTENTS -->
+
+    <!-- START MODAL -->
+      <!-- New Note -->
+      <div class="modal fade" id="newNote" tabindex="-1" aria-labelledby="newNoteModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="newNoteModalLabel">New Notes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="noteNewForm">
+                <div class="mb-3">
+                  <label for="noteNewTitle" class="col-form-label">Title :</label>
+                  <input type="text" class="form-control" id="noteNewTitle">
+                </div>
+                <div class="mb-3">
+                  <label for="noteNewBody" class="col-form-label">Body :</label>
+                  <textarea class="form-control" rows="4" id="noteNewBody"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" onclick="addNote()" data-bs-dismiss="modal">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Note -->
+      <div class="modal fade" id="editNote" tabindex="-1" aria-labelledby="editNoteModalLabel" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editNoteModalLabel">Edit Note</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="noteEditForm">
+                <input type="hidden" class="form-control" id="noteEditId">
+                <div class="mb-3">
+                  <label for="noteEditTitle" class="col-form-label">Title :</label>
+                  <input type="text" class="form-control" id="noteEditTitle">
+                </div>
+                <div class="mb-3">
+                  <label for="noteEditBody" class="col-form-label">Body :</label>
+                  <textarea class="form-control" rows="4" id="noteEditBody"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" onclick="deleteNote()" data-bs-dismiss="modal">Remove</button>
+              <button type="button" class="btn btn-primary" onclick="updateNote()" data-bs-dismiss="modal">Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Show Author -->
+      <div class="modal fade" id="noteAuthor" tabindex="-1" aria-labelledby="noteAuthorLabel" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="noteAuthorLabel">Author</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <span class="text-center"><img src="src/img/profile-225.png" alt="profile" width="200px"></span>
+              </div>
+              <div class="row mx-4 my-4">
+                <table class="table table-borderless">
+                  <tr>
+                    <td>
+                      Author
+                    </td>
+                    <td>
+                      :
+                    </td>
+                    <td>
+                      JulviantoM
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Specialization
+                    </td>
+                    <td>
+                      :
+                    </td>
+                    <td>
+                      Web Developer
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <div class="d-flex">
+                <a class="nav-link" href="https://facebook.com/mirkojulvianto"><span><img src="src/img/icon/1024px-Facebook_icon.png" alt="facebook" width="40px"></span></a>
+                <a class="nav-link" href="https://instagram.com/julvianto"><span><img src="src/img/icon/600px-Instagram_icon.png" alt="instagram" width="40px"></span></a>
+                <a class="nav-link" href="https://github.com/JulviantoM"><span><img src="src/img/icon/512px-Github_icon.png" alt="github" width="40px"></span></a>
+              </div>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- END MODAL -->
+
+    <!-- START SCRIPT -->
+      <script src="src/js/main.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <!-- END SCRIPT -->
+  </body>
+</html>
