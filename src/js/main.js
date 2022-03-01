@@ -42,20 +42,18 @@ function addNote(){
   const noteAdd = noteStore.add(newNote);
   
   noteAdd.onsuccess = (e) => {
-    newNote.id = e.target.result;
-    makeNoteComponent(newNote); 
+    document.getElementById("noteNewForm").reset();
+    window.location.reload();
   }
 
   noteAdd.onerror = (e) => {
     alert("Something went wrong");
   }
-
-  document.getElementById("noteNewForm").reset();
 }
 
 function getAllNotes(){
   const noteStore = db.transaction("notes", "readonly").objectStore("notes");
-  const openCursor = noteStore.openCursor();
+  const openCursor = noteStore.openCursor(null, "prev");
   
   openCursor.onsuccess = (e) => {
     const cursor = e.target.result;
