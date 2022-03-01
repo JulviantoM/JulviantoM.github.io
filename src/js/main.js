@@ -138,7 +138,7 @@ function getValueEdit(obj){
 
 function makeNoteComponent(noteObj){
   appContents.innerHTML += `
-  <div class="card w-auto" id="${noteObj.id}" onclick="getValueEdit(this)" data-bs-toggle="modal" data-bs-target="#editNote">
+  <div class="card" id="${noteObj.id}" onclick="getValueEdit(this)" data-bs-toggle="modal" data-bs-target="#editNote">
     <div class="card-body bg-warning rounded-3">
       <h5 class="card-title">${noteObj.title}</h5>
       <hr class="underline">
