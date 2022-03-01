@@ -12,7 +12,7 @@ const openDB = indexedDB.open(dbName, dbVersion);
 
 openDB.onupgradeneeded = (e) => {
   db = e.target.result;
-  const noteStore = db.createObjectStore("notes", {autoIncrement: true});
+  db.createObjectStore("notes", {autoIncrement: true});
 }
 
 openDB.onsuccess = (e) => {
